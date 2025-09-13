@@ -4,97 +4,439 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nixcookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* Grundlegende Stile */
         body {
-            background-image: url('https://cdn.pixabay.com/photo/2013/12/22/02/52/christmas-cookies-232101_1280.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .nav {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
+
+        /* Header und Navigation */
+        header {
+            background-color: #fff;
+            padding: 1em 2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
+            z-index: 1000;
+        }
+
+        nav {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .nav a {
-            color: white;
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
             text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
+            color: #555;
+            font-weight: 400;
             transition: color 0.3s;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
         }
-        .nav a:hover {
-            color: #ffcc00;
+        
+        nav ul li a:hover {
+            color: #007bff;
         }
-        .content-box {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            padding: 40px;
+        
+        /* Hauptinhalte */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        section {
+            padding: 4em 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            color: #222;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        /* Hero-Sektion */
+        #hero {
+            text-align: center;
+            padding: 6em 2em;
+            background-color: #e9ecef;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            margin: 0;
+            opacity: 0;
+            animation: slideInFromLeft 0.8s forwards;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            color: #666;
+            opacity: 0;
+            animation: slideInFromRight 0.8s forwards;
+            animation-delay: 0.2s;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 1em;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Projekte */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+        }
+
+        .project-item {
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        
+        .project-item h3, .project-item p {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Nebenprojekte */
+        .side-projects-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .side-projects-list li {
+            background-color: #fff;
+            padding: 1em;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .side-projects-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .side-projects-list a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+        
+        .side-projects-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2em;
+            background-color: #333;
+            color: #f4f4f9;
+        }
+
+        /* Modal (Popup-Fenster) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 2em;
             border-radius: 10px;
             width: 80%;
-            margin: 50px auto;
-            text-align: center;
-            min-height: 200px;
-            flex-grow: 1;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-out;
         }
-        .link-button {
-            display: inline-block;
-            background: #ffcc00;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
+
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
             font-weight: bold;
-            text-decoration: none;
-            color: #333;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: color 0.3s;
         }
-        .link-button:hover {
-            background: #ffa500;
+
+        .close-btn:hover {
+            color: #000;
         }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            text-align: center;
-            font-size: 14px;
+
+        /* Keyframes für Animationen */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .footer a {
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="index.html">Start</a>
-        <a href="projekt1.html">Emergency Neukölln</a>
-        <a href="projekt2.html">Globify</a>
-        <a href="projekt3.html">Neukölln Kiez Roleplay</a>
-        <a href="projekt4.html">Other projects</a>
+
+    <header>
+        <nav>
+            <div class="logo">nixcookies</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#side-projects">Side-Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Hi, I am nixcookies</h1>
+                <p>Developer, Moderator and a simple user.</p>
+                <a href="#contact" class="btn">Contact</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>I am nixcookies – developer, moderator, and part of the Global Studios project. My focus is on developing Discord bots. With the Globify bot, we have created a versatile solution that offers moderation, global chat, and much more. I mainly work with Python and love to implement projects with personality and precision.</p>
+        </section>
+
+        <section id="projects">
+            <h2>My Projects</h2>
+            <div class="project-grid">
+                <div class="project-item" data-project-id="1">
+                    <h3>Global Studios</h3>
+                    <p>Global Studios is a small development studio with its own bot. ~ Worldchanging Projects</p>
+                </div>
+                <div class="project-item" data-project-id="2">
+                    <h3>Berlin RolePlay</h3>
+                    <p>A German-language Emergency Emden roleplay server</p>
+                </div>
+                <div class="project-item" data-project-id="3">
+                    <h3>Emergency Neukölln</h3>
+                    <p>Emergency Neukölln is another simulation game on Roblox.</p>
+                </div>
+                <div class="project-item" data-project-id="4">
+                    <h3>Neukölln Keiz Roleplay</h3>
+                    <p>Neukölln Kiez Roleplay is a roleplay server for Emergency Neukölln.</p>
+                </div>
+                <div class="project-item" data-project-id="5">
+                    <h3>Cookies Community</h3>
+                    <p>My simple community server.</p>
+                </div>
+                <div class="project-item" data-project-id="6">
+                    <h3>More is on the way</h3>
+                    <p>More is on the way! 😄</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="side-projects">
+            <h2>My Side-Projects</h2>
+            <p style="text-align: center; color: #666;">Small projects that are also noteworthy.</p>
+            <ul class="side-projects-list">
+                <li><a href="#"><a href='https://discord.gg/PCVVYUF48X' target='_blank'>Dev HQ</a><br>A community for developers and hobby coders.</li>
+                <li><a href="#"><a href='https://discord.gg/XMwkfAARGq' target='_blank'>Tropical Studios</a><br>Another developer studio with lots of fun games on Roblox and exciting giveaways.</li>
+                <li><a href="#"><a href='https://www.roblox.com/de/catalog/70468950410637/Classic-Suit-for-Robloxians' target='_blank'>Classic Suit for Robloxians</a><br>A shop item that I created for Roblox in my spare time.</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Get in touch:</p>
+            <p>Discord Server: <a href="https://discord.gg/.gg/MrSzJTpN">Cookies Community</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 nixcookies. All rights reserved.</p>
+    </footer>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+        </div>
     </div>
-    <div class="content-box">
-        <h1>Über mich</h1>
-        <p>Ich bin nixcookies – kreativ, technisch versiert und immer auf der Suche nach neuen Ideen! 🚀</p>
-        <h2>Wichtige Links</h2>
-        <a href="https://github.com/nixcookies" class="link-button">GitHub-Profil</a>
-        <a href="https://x.com/nix_cookies" class="link-button">X</a>
-    </div>
-    <div class="footer">
-        © 2025 nixcookies | <a href="https://github.com/nixcookies/nixcookies-bio">Show on GitHub</a> | Danke an Compaq ❤️
-    </div>
+
+    <script>
+        const projectsData = {
+            1: {
+                title: "Global Studios",
+                description: "Global Studios is a small development studio with its own bot. The Globify bot is used on ~75 servers. And the number is growing! If you want to use it yourself, support us, or just be part of it, then join now: <a href='https://discord.gg/jFS8sEenKS' target='_blank'>Join our Discord!</a>"
+            },
+            2: {
+                title: "Berlin RolePlay",
+                description: "A German-speaking Emergency Emden roleplay server. Always looking for new members. <a href='https://discord.gg/MDTVdDBS7A' target='_blank'>Join the Discord-Server!</a>"
+            },
+            3: {
+                title: "Emergency Neukölln",
+                description: "Emergency Neukölln is another simulation game on Roblox. This wonderful game is still in development, but we are already eagerly awaiting its release. <a href='https://discord.gg/tZYAfRPHjr' target='_blank'>Join Emergency Neukölln!</a>"
+            },
+            4: {
+                title: "Neukölln Kiez Roleplay",
+                description: "Neukölln Kiez Roleplay is a roleplay server for Emergency Neukölln. As a citizen, you are already expected! <a href='https://discord.gg/85qX35nXnY' target='_blank'>Visit!</a>"
+            },
+            5: {
+                title: "Cookies Community",
+                description: "My simple community server. I am happy to welcome everyone who joins and has fun with us. <a href='https://discord.gg/MrSzJTpNvr' target='_blank'>Join now!</a>"
+            },
+            6: {
+                title: "More is on the way",
+                description: "I am always interested in new things, which is why these boxes will not be the only ones here. To stay up to date, check back here regularly or join my community server."
+            }
+        };
+
+        // JavaScript für die Animationen beim Scrollen
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // JavaScript für das Modal-Fenster
+        const modal = document.getElementById('projectModal');
+        const closeBtn = document.querySelector('.close-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectItems = document.querySelectorAll('.project-item');
+            projectItems.forEach(item => {
+                item.addEventListener('click', (event) => {
+                    const projectId = event.currentTarget.getAttribute('data-project-id');
+                    const project = projectsData[projectId];
+                    
+                    if (project) {
+                        modalTitle.textContent = project.title;
+                        modalDescription.innerHTML = project.description;
+                        modal.classList.add('open');
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('open');
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.classList.remove('open');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
