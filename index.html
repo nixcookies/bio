@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nixcookies</title>
     <style>
-        /* Grundlegende Stile */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -16,7 +15,6 @@
             overflow-x: hidden;
         }
 
-        /* Header und Navigation */
         header {
             background-color: #fff;
             padding: 1em 2em;
@@ -63,7 +61,6 @@
             color: #007bff;
         }
         
-        /* Hauptinhalte */
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -91,7 +88,6 @@
             margin-bottom: 1.5em;
         }
 
-        /* Hero-Sektion */
         #hero {
             text-align: center;
             padding: 6em 2em;
@@ -134,7 +130,6 @@
             transform: translateY(-2px);
         }
 
-        /* Projekte */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -160,7 +155,6 @@
             margin-bottom: 10px;
         }
 
-        /* Nebenprojekte */
         .side-projects-list {
             list-style-type: none;
             padding: 0;
@@ -191,7 +185,6 @@
             text-decoration: underline;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2em;
@@ -199,7 +192,6 @@
             color: #f4f4f9;
         }
 
-        /* Modal (Popup-Fenster) */
         .modal {
             display: none;
             position: fixed;
@@ -254,7 +246,6 @@
             color: #000;
         }
 
-        /* Keyframes für Animationen */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -307,7 +298,7 @@
                     <p>Global Studios is a small development studio with its own bot. ~ Worldchanging Projects</p>
                 </div>
                 <div class="project-item" data-project-id="2">
-                    <h3>Berlin RolePlay</h3>
+                    <h3>Neukölln RP</h3>
                     <p>A German-language Emergency Emden roleplay server</p>
                 </div>
                 <div class="project-item" data-project-id="3">
@@ -362,11 +353,11 @@
         const projectsData = {
             1: {
                 title: "Global Studios",
-                description: "Global Studios is a small development studio with its own bot. The Globify bot is used on ~75 servers. And the number is growing! If you want to use it yourself, support us, or just be part of it, then join now: <a href='https://discord.gg/jFS8sEenKS' target='_blank'>Join our Discord!</a>"
+                description: "Global Studios is a small development studio with its own bot. The Globify bot is used on ~75 servers. And the number is growing! If you want to use it yourself, support us, or just be part of it, then <a href='https://discord.gg/jFS8sEenKS' target='_blank'>join now</a> or <a href='https://top.gg/de/bot/1340051960904028172' target='_blank'>vote on top.gg</a>!"
             },
             2: {
-                title: "Berlin RolePlay",
-                description: "A German-speaking Emergency Emden roleplay server. Always looking for new members. <a href='https://discord.gg/MDTVdDBS7A' target='_blank'>Join the Discord-Server!</a>"
+                title: "Neukölln RP",
+                description: "A German-speaking Emergency Emden roleplay server. Always looking for new members. <a href='https://discord.gg/7qybvDKBgc' target='_blank'>Join the Discord-Server!</a>"
             },
             3: {
                 title: "Emergency Neukölln",
@@ -386,7 +377,6 @@
             }
         };
 
-        // JavaScript für die Animationen beim Scrollen
         const sections = document.querySelectorAll('section');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -403,7 +393,6 @@
             observer.observe(section);
         });
 
-        // JavaScript für das Modal-Fenster
         const modal = document.getElementById('projectModal');
         const closeBtn = document.querySelector('.close-btn');
         const modalTitle = document.getElementById('modal-title');
