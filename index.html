@@ -1,428 +1,268 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nixcookies</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nixcookies</title>
+  <style>
+    :root {
+      --blue-dark: #0a192f;
+      --blue-mid: #102f4a;
+      --blue-light: #1e90ff;
+      --blue-soft: #48b6ff;
+      --blue-glass: rgba(200, 230, 255, 0.95);
+      --text-dark: #0a192f;
+    }
 
-        header {
-            background-color: #fff;
-            padding: 1em 2em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      color: var(--blue-soft);
+      overflow-x: hidden;
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    header {
+      text-align: center;
+      padding: 2em;
+      font-size: 2em;
+      font-weight: bold;
+      color: var(--blue-soft);
+    }
 
-        .logo {
-            font-size: 1.5em;
-            font-weight: 600;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 20% 20%, var(--blue-soft), transparent 40%),
+                  radial-gradient(circle at 80% 30%, var(--blue-light), transparent 40%),
+                  radial-gradient(circle at 50% 80%, #2b9fff, transparent 40%);
+      animation: floatBackground 20s infinite alternate ease-in-out;
+      z-index: -1;
+    }
 
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
+    @keyframes floatBackground {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(-10%,-10%) scale(1.2); }
+    }
 
-        nav ul li a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 400;
-            transition: color 0.3s;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 0.5s;
-        }
-        
-        nav ul li a:hover {
-            color: #007bff;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2em;
-        }
+    section {
+      margin: 4em auto;
+      max-width: 900px;
+      padding: 3em;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      text-align: center;
+      animation: floatBlob 6s infinite ease-in-out;
+    }
 
-        section {
-            padding: 4em 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    h1, h2 {
+      margin-bottom: 1em;
+      color: var(--blue-soft);
+    }
 
-        h1, h2, h3 {
-            color: #222;
-        }
+    p {
+      font-size: 1.1em;
+      color: #000000;
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 1.5em;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2em;
+    }
 
-        #hero {
-            text-align: center;
-            padding: 6em 2em;
-            background-color: #e9ecef;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s forwards;
-        }
+    .card {
+      padding: 2em;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s, color 0.3s;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
 
-        .hero-content h1 {
-            font-size: 3em;
-            margin: 0;
-            opacity: 0;
-            animation: slideInFromLeft 0.8s forwards;
-        }
+    .card:hover {
+      transform: translateY(-8px) scale(1.05);
+      background: rgba(255,255,255,0.25);
+      color: var(--blue-dark);
+    }
 
-        .hero-content p {
-            font-size: 1.2em;
-            color: #666;
-            opacity: 0;
-            animation: slideInFromRight 0.8s forwards;
-            animation-delay: 0.2s;
-        }
+    .btn {
+      display: inline-block;
+      margin-top: 1.5em;
+      padding: 12px 30px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue-dark);
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
 
-        .btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            margin-top: 1em;
-            transition: background-color 0.3s, transform 0.3s;
-            cursor: pointer;
-        }
+    .btn:hover {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      transform: scale(1.1);
+    }
 
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: #c9e8ff;
+    }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2em;
-        }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
 
-        .project-item {
-            background-color: #fff;
-            padding: 1.5em;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
+    .modal.open {
+      display: flex;
+    }
 
-        .project-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        
-        .project-item h3, .project-item p {
-            margin: 0;
-            margin-bottom: 10px;
-        }
+    .modal-content {
+      background: var(--blue-glass);
+      color: var(--text-dark);
+      padding: 2.5em;
+      border-radius: 40px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      animation: popIn 0.4s ease;
+      position: relative;
+    }
 
-        .side-projects-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
 
-        .side-projects-list li {
-            background-color: #fff;
-            padding: 1em;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .close-btn {
+      position: absolute;
+      top: 15px; right: 20px;
+      font-size: 1.8em;
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--text-dark);
+      transition: color 0.3s;
+    }
 
-        .side-projects-list li:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
+    .close-btn:hover {
+      color: var(--blue-light);
+    }
 
-        .side-projects-list a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: 500;
-        }
-        
-        .side-projects-list a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2em;
-            background-color: #333;
-            color: #f4f4f9;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal.open {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 2em;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease-out;
-        }
-
-        .modal.open .modal-content {
-            transform: scale(1);
-        }
-
-        .close-btn {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #000;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideInFromLeft {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideInFromRight {
-            from { transform: translateX(50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-    </style>
+    .modal-content a {
+      color: var(--blue-dark);
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+  <header>nixcookies</header>
 
-    <header>
-        <nav>
-            <div class="logo">nixcookies</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#side-projects">Side-Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <main>
+    <section id="hero">
+      <h1>Hi, I am nixcookies</h1>
+      <p>Developer, Moderator and a simple user.</p>
+      <a href="#projects" class="btn">See my Projects</a>
+    </section>
 
-    <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h1>Hi, I am nixcookies</h1>
-                <p>Developer, Moderator and a simple user.</p>
-                <a href="#contact" class="btn">Contact</a>
-            </div>
-        </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+        <div class="card" data-project-id="1">Global Studios</div>
+        <div class="card" data-project-id="2">Neukölln RP</div>
+        <div class="card" data-project-id="3">Emergency Neukölln</div>
+        <div class="card" data-project-id="4">Neukölln Kiez Roleplay</div>
+        <div class="card" data-project-id="5">Cookies Community</div>
+        <div class="card" data-project-id="6">More is on the way</div>
+      </div>
+    </section>
 
-        <section id="about">
-            <h2>About</h2>
-            <p>I am nixcookies – developer, moderator, and part of the Global Studios project. My focus is on developing Discord bots. With the Globify bot, we have created a versatile solution that offers moderation, global chat, and much more. I mainly work with Python and love to implement projects with personality and precision.</p>
-        </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Join my community to get in touch with me or others.</p>
+      <a href="https://discord.gg/MrSzJTpNvr" class="btn">Discord</a>
+    </section>
+  </main>
 
-        <section id="projects">
-            <h2>My Projects</h2>
-            <div class="project-grid">
-                <div class="project-item" data-project-id="1">
-                    <h3>Global Studios</h3>
-                    <p>Global Studios is a small development studio with its own bot. ~ Worldchanging Projects</p>
-                </div>
-                <div class="project-item" data-project-id="2">
-                    <h3>Neukölln RP</h3>
-                    <p>A German-language Emergency Emden roleplay server</p>
-                </div>
-                <div class="project-item" data-project-id="3">
-                    <h3>Emergency Neukölln</h3>
-                    <p>Emergency Neukölln is another simulation game on Roblox.</p>
-                </div>
-                <div class="project-item" data-project-id="4">
-                    <h3>Neukölln Keiz Roleplay</h3>
-                    <p>Neukölln Kiez Roleplay is a roleplay server for Emergency Neukölln.</p>
-                </div>
-                <div class="project-item" data-project-id="5">
-                    <h3>Cookies Community</h3>
-                    <p>My simple community server.</p>
-                </div>
-                <div class="project-item" data-project-id="6">
-                    <h3>More is on the way</h3>
-                    <p>More is on the way! 😄</p>
-                </div>
-            </div>
-        </section>
+  <footer>
+    © 2025 nixcookies - All rights reserved.
+  </footer>
 
-        <section id="side-projects">
-            <h2>My Side-Projects</h2>
-            <p style="text-align: center; color: #666;">Small projects that are also noteworthy.</p>
-            <ul class="side-projects-list">
-                <li><a href="#"><a href='https://discord.gg/PCVVYUF48X' target='_blank'>Dev HQ</a><br>A community for developers and hobby coders.</li>
-                <li><a href="#"><a href='https://discord.gg/XMwkfAARGq' target='_blank'>Tropical Studios</a><br>Another developer studio with lots of fun games on Roblox and exciting giveaways.</li>
-                <li><a href="#"><a href='https://www.roblox.com/de/catalog/70468950410637/Classic-Suit-for-Robloxians' target='_blank'>Classic Suit for Robloxians</a><br>A shop item that I created for Roblox in my spare time.</li>
-            </ul>
-        </section>
-
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Get in touch:</p>
-            <p>Discord Server: <a href="https://discord.gg/.gg/MrSzJTpN">Cookies Community</a></p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 nixcookies. All rights reserved.</p>
-    </footer>
-
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 id="modal-title"></h3>
-            <p id="modal-description"></p>
-        </div>
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-description"></p>
     </div>
+  </div>
 
-    <script>
-        const projectsData = {
-            1: {
-                title: "Global Studios",
-                description: "Global Studios is a small development studio with its own bot. The Globify bot is used on ~75 servers. And the number is growing! If you want to use it yourself, support us, or just be part of it, then <a href='https://discord.gg/jFS8sEenKS' target='_blank'>join now</a> or <a href='https://top.gg/de/bot/1340051960904028172' target='_blank'>vote on top.gg</a>!"
-            },
-            2: {
-                title: "Neukölln RP",
-                description: "A German-speaking Emergency Emden roleplay server. Always looking for new members. <a href='https://discord.gg/7qybvDKBgc' target='_blank'>Join the Discord-Server!</a>"
-            },
-            3: {
-                title: "Emergency Neukölln",
-                description: "Emergency Neukölln is another simulation game on Roblox. This wonderful game is still in development, but we are already eagerly awaiting its release. <a href='https://discord.gg/tZYAfRPHjr' target='_blank'>Join Emergency Neukölln!</a>"
-            },
-            4: {
-                title: "Neukölln Kiez Roleplay",
-                description: "Neukölln Kiez Roleplay is a roleplay server for Emergency Neukölln. As a citizen, you are already expected! <a href='https://discord.gg/85qX35nXnY' target='_blank'>Visit!</a>"
-            },
-            5: {
-                title: "Cookies Community",
-                description: "My simple community server. I am happy to welcome everyone who joins and has fun with us. <a href='https://discord.gg/MrSzJTpNvr' target='_blank'>Join now!</a>"
-            },
-            6: {
-                title: "More is on the way",
-                description: "I am always interested in new things, which is why these boxes will not be the only ones here. To stay up to date, check back here regularly or join my community server."
-            }
-        };
+  <script>
+    const projectsData = {
+      1: {
+        title: "Global Studios",
+        description: "Global Studios is a small development studio with its own bot. The Globify bot is used on ~75 servers. And the number is growing! If you want to use it yourself, support us, or just be part of it, then <a href='https://discord.gg/jFS8sEenKS' target='_blank'>join now</a> or <a href='https://top.gg/de/bot/1340051960904028172' target='_blank'>vote on top.gg</a>!"
+      },
+      2: {
+        title: "Neukölln RP",
+        description: "A German-speaking Emergency Emden roleplay server. Always looking for new members. <a href='https://discord.gg/7qybvDKBgc' target='_blank'>Join the Discord-Server!</a>"
+      },
+      3: {
+        title: "Emergency Neukölln",
+        description: "Emergency Neukölln is another simulation game on Roblox. This wonderful game is still in development, but we are already eagerly awaiting its release. <a href='https://discord.gg/tZYAfRPHjr' target='_blank'>Join Emergency Neukölln!</a>"
+      },
+      4: {
+        title: "Neukölln Kiez Roleplay",
+        description: "Neukölln Kiez Roleplay is a roleplay server for Emergency Neukölln. As a citizen, you are already expected! <a href='https://discord.gg/85qX35nXnY' target='_blank'>Visit!</a>"
+      },
+      5: {
+        title: "Cookies Community",
+        description: "My simple community server. I am happy to welcome everyone who joins and has fun with us. <a href='https://discord.gg/MrSzJTpNvr' target='_blank'>Join now!</a>"
+      },
+      6: {
+        title: "More is on the way",
+        description: "I am always interested in new things, which is why these boxes will not be the only ones here. To stay up to date, check back here regularly or join my community server."
+      }
+    };
 
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const closeBtn = document.querySelector('.close-btn');
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+    document.querySelectorAll('[data-project-id]').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-project-id');
+        modalTitle.textContent = projectsData[id].title;
+        modalDescription.innerHTML = projectsData[id].description;
+        modal.classList.add('open');
+      });
+    });
 
-        const modal = document.getElementById('projectModal');
-        const closeBtn = document.querySelector('.close-btn');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const projectItems = document.querySelectorAll('.project-item');
-            projectItems.forEach(item => {
-                item.addEventListener('click', (event) => {
-                    const projectId = event.currentTarget.getAttribute('data-project-id');
-                    const project = projectsData[projectId];
-                    
-                    if (project) {
-                        modalTitle.textContent = project.title;
-                        modalDescription.innerHTML = project.description;
-                        modal.classList.add('open');
-                    }
-                });
-            });
-
-            closeBtn.addEventListener('click', () => {
-                modal.classList.remove('open');
-            });
-
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.classList.remove('open');
-                }
-            });
-        });
-    </script>
+    closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+    window.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+  </script>
 </body>
 </html>
