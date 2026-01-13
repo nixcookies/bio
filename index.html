@@ -4,116 +4,232 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>nixcookies</title>
-  <meta name="description" content="Link hub by nixcookies." />
+  <meta name="description" content="Links by nixcookies." />
   <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
-    :root{
-      --bg:#06070b; --card:#0b0d16; --accent:#4da3ff;
-      --text:#f5f6ff; --muted:#a1a4c0; --border:rgba(255,255,255,0.08);
-      --radius:16px; --radius-sm:12px; --shadow:0 22px 55px rgba(0,0,0,0.55);
+    :root {
+      --bg: #f0f9f5; 
+      --card: #ffffff; 
+      --accent: #7dd3c0; 
+      --text: #06070b; 
+      --muted: #6b7280;
+      --border: rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0; height:100%;}
-    body{
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased;
-      min-height:100vh; display:flex; justify-content:center;
-      overflow-y:auto;
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
     }
 
-    .bg{
-      position:fixed; inset:-20vh; pointer-events:none;
+    .bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(800px 800px at 90% 10%, rgba(77,163,255,0.18), transparent 60%),
-        radial-gradient(700px 700px at 10% 90%, rgba(163,120,255,0.16), transparent 60%);
-      filter:blur(30px);
-      z-index:0;
+        radial-gradient(800px 800px at 90% 10%, rgba(125, 211, 192, 0.1), transparent 60%),
+        radial-gradient(700px 700px at 10% 90%, rgba(147, 112, 219, 0.1), transparent 60%);
+      z-index: 0;
     }
 
-    .wrap{width:100%; max-width:720px; padding:32px 18px; position:relative; z-index:2;}
-
-    .profile{
-      display:flex; gap:16px; align-items:center; margin-bottom:22px;
-      padding:14px; border:1px solid var(--border); border-radius:var(--radius);
-      background:linear-gradient(160deg, #0b0d16, #080a12);
-      box-shadow:var(--shadow);
+    .news-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #7dd3c0, #87ceeb);
+      color: var(--bg);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10001;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    .favicon{width:40px; height:40px; border-radius:8px;}
-    .who{display:grid; gap:4px;}
-    .name{font-weight:700; font-size:18px; text-transform:lowercase}
-    .tagline{font-size:13px; color:var(--muted)}
-
-    .grid{display:grid; gap:12px; margin-bottom:22px;}
-    .card{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:16px 18px; border-radius:var(--radius);
-      background:linear-gradient(160deg, #0b0d16, #080a12);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      text-decoration:none; color:inherit;
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      position:relative; overflow:hidden;
-    }
-    .card:hover{transform:translateY(-4px) scale(1.015); border-color:rgba(77,163,255,0.5);}
-    .left{display:flex; align-items:center; gap:12px;}
-    .icon{
-      width:34px; height:34px; border-radius:12px;
-      display:grid; place-items:center; color:#0b0d16;
-      background:linear-gradient(135deg,#4da3ff,#87c7ff);
-      box-shadow:0 8px 18px rgba(77,163,255,0.45);
-      flex-shrink:0;
-    }
-    .label{display:grid; gap:4px;}
-    .title{font-size:15px; font-weight:600}
-    .desc{font-size:12px; color:var(--muted)}
-    .arrow{
-      width:36px; height:36px; border-radius:50%;
-      display:grid; place-items:center;
-      border:1px solid var(--border);
-      color:var(--text);
-      transition:transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .card:hover .arrow{transform:translateX(4px); border-color:rgba(77,163,255,0.6); background:rgba(77,163,255,0.08);}
-    .section-title{margin:22px 4px 12px; font-size:13px; color:var(--muted); letter-spacing:.05em; text-transform:uppercase;}
-    .foot{margin-top:20px; text-align:center; color:var(--muted); font-size:12px;}
-
-    .snow-layer{
-      position:fixed; inset:0; pointer-events:none; z-index:9999;
-    }
-    .snowflake{
-      position:absolute;
-      top:-10px;
-      border-radius:50%;
-      background:#fff;
-      box-shadow:0 0 8px rgba(255,255,255,0.8);
-      opacity:0.9;
-      animation: fall linear forwards;
-    }
-    @keyframes fall{
-      to{ transform: translateY(110vh); opacity:0.95; }
+    .close-banner {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--bg);
     }
 
-    .toggle-snow{
-      position:fixed;
-      bottom:20px; right:20px;
-      z-index:10000;
-      background:rgba(77,163,255,0.2);
-      border:1px solid var(--accent);
-      border-radius:50%;
-      width:48px; height:48px;
-      display:flex; align-items:center; justify-content:center;
-      color:var(--text);
-      cursor:pointer;
-      box-shadow:0 0 12px rgba(77,163,255,0.6);
-      transition:background .2s ease;
+    .wrap {
+      width: 100%;
+      max-width: 720px;
+      padding: 32px 18px;
+      position: relative;
+      z-index: 2;
+      margin-top: 50px;
     }
-    .toggle-snow:hover{background:rgba(77,163,255,0.35);}
+
+    .profile {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .favicon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+    .who {
+      display: grid;
+      gap: 4px;
+    }
+    .name {
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: lowercase;
+    }
+    .tagline {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(125, 211, 192, 0.5);
+    }
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, #7dd3c0, #87ceeb);
+      box-shadow: 0 2px 8px rgba(125, 211, 192, 0.3);
+      flex-shrink: 0;
+    }
+    .label {
+      display: grid;
+      gap: 4px;
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .card:hover .arrow {
+      transform: translateX(4px);
+      border-color: rgba(125, 211, 192, 0.6);
+      background: rgba(125, 211, 192, 0.08);
+    }
+
+    .section-title {
+      margin: 22px 4px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .foot {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+  .raindrop {
+    position: absolute;
+    width: 2.5px;
+    height: 15px; 
+    background: linear-gradient(to bottom, transparent, #088ddf); 
+    top: -15px;
+    left: 0;
+    transform: rotate(20deg);
+    animation: fall 1s linear forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(20deg);
+    }
+  }
+
+    .toggle-weather {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--accent);
+      background: rgba(125, 211, 192, 0.2);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(125, 211, 192, 0.4);
+    }
+    .toggle-weather:hover {
+      background: rgba(125, 211, 192, 0.35);
+    }
   </style>
 </head>
 <body>
   <div class="bg"></div>
-  <div class="snow-layer" id="snow"></div>
+  <div class="rain-layer" id="rain"></div>
+  <div class="news-banner" id="newsBanner">
+    <span>🎉 Announcement: <a href="https://nixcookies.github.io/bio/" target="_blank" style="color: var(--bg);">New look for the website</a></span>
+    <button class="close-banner" id="closeBanner">×</button>
+  </div>
 
   <main class="wrap">
     <section class="profile">
@@ -127,12 +243,23 @@
     <h3 class="section-title">primary</h3>
     <div class="grid">
       <a class="card" href="https://discord.gg/MrSzJTpNvr" target="_blank">
-        <div class="left"><div class="icon">💬</div><div class="label"><div class="title">Discord</div><div class="desc">contact, projects, servers</div></div></div>
+        <div class="left">
+          <div class="icon">💬</div>
+          <div class="label">
+            <div class="title">Discord</div>
+            <div class="desc">contact, projects, servers</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
-
       <a class="card" href="https://github.com/nixcookies" target="_blank">
-        <div class="left"><div class="icon">💻</div><div class="label"><div class="title">GitHub</div><div class="desc">projects</div></div></div>
+        <div class="left">
+          <div class="icon">💻</div>
+          <div class="label">
+            <div class="title">GitHub</div>
+            <div class="desc">projects</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
     </div>
@@ -140,20 +267,37 @@
     <h3 class="section-title">projects</h3>
     <div class="grid">
       <a class="card" href="https://discord.gg/jFS8sEenKS" target="_blank">
-        <div class="left"><div class="icon">🌍</div><div class="label"><div class="title">Global Studios</div><div class="desc">a small development studio</div></div></div>
+        <div class="left">
+          <div class="icon">🌍</div>
+          <div class="label">
+            <div class="title">Global Studios</div>
+            <div class="desc">a small development studio</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
     </div>
-
     <div class="grid">
       <a class="card" href="https://top.gg/de/bot/1340051960904028172" target="_blank">
-        <div class="left"><div class="icon">🤖</div><div class="label"><div class="title">Globify</div><div class="desc">globalchat discord bot (top.gg)</div></div></div>
+        <div class="left">
+          <div class="icon">🤖</div>
+          <div class="label">
+            <div class="title">Globify</div>
+            <div class="desc">globalchat discord bot (top.gg)</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
     </div>
     <div class="grid">
       <a class="card" href="https://discord.gg/85qX35nXnY" target="_blank">
-        <div class="left"><div class="icon">⚙️</div><div class="label"><div class="title">Neukölln Kiez Roleplay</div><div class="desc">a roleplay server for Emergency Neukölln</div></div></div>
+        <div class="left">
+          <div class="icon">⚙️</div>
+          <div class="label">
+            <div class="title">Neukölln Kiez Roleplay</div>
+            <div class="desc">a roleplay server for Emergency Neukölln</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
     </div>
@@ -161,12 +305,23 @@
     <h3 class="section-title">servers i’m active on</h3>
     <div class="grid">
       <a class="card" href="https://discord.gg/tZYAfRPHjr" target="_blank">
-        <div class="left"><div class="icon">🚓</div><div class="label"><div class="title">Emergency Neukölln</div><div class="desc">ROBLOX simulation game in development</div></div></div>
+        <div class="left">
+          <div class="icon">🚓</div>
+          <div class="label">
+            <div class="title">Emergency Neukölln</div>
+            <div class="desc">ROBLOX simulation game in development</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
-
       <a class="card" href="https://discord.gg/emergency-emden" target="_blank">
-        <div class="left"><div class="icon">🚑</div><div class="label"><div class="title">Emergency Emden</div><div class="desc">ROBLOX simulation game</div></div></div>
+        <div class="left">
+          <div class="icon">🚑</div>
+          <div class="label">
+            <div class="title">Emergency Emden</div>
+            <div class="desc">ROBLOX simulation game</div>
+          </div>
+        </div>
         <div class="arrow">→</div>
       </a>
     </div>
@@ -174,46 +329,37 @@
     <p class="foot">© <span id="y"></span> nixcookies</p>
   </main>
 
-  <div class="toggle-snow" id="toggleSnow">❄️</div>
+  <button class="toggle-weather" id="toggleWeather">
+    <span id="weatherIcon">⛆</span> Switch weather
+  </button>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    const snowContainer = document.getElementById('snow');
-    let snowEnabled = true;
-
-    function spawnFlake() {
-      if (!snowEnabled) return;
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-
-      const x = Math.random() * window.innerWidth;
-      flake.style.left = x + 'px';
-
-      const size = 4 + Math.random() * 6;
-      flake.style.width = size + 'px';
-      flake.style.height = size + 'px';
-
-      const duration = 5 + Math.random() * 10;
-      flake.style.animationDuration = duration + 's';
-
-      snowContainer.appendChild(flake);
-
-      setTimeout(() => flake.remove(), duration * 1000 + 500);
-    }
-
-    for (let i = 0; i < 50; i++) {
-      setTimeout(spawnFlake, i * 100);
-    }
-    setInterval(() => {
-      for (let i = 0; i < 3; i++) spawnFlake();
-    }, 600);
-
-    const toggleBtn = document.getElementById('toggleSnow');
-    toggleBtn.addEventListener('click', () => {
-      snowEnabled = !snowEnabled;
-      toggleBtn.textContent = snowEnabled ? '❄️' : '⛔';
+    document.getElementById('closeBanner').addEventListener('click', () => {
+      document.getElementById('newsBanner').style.display = 'none';
     });
+
+  const rainContainer = document.getElementById('rain');
+  let rainEnabled = true;
+
+  function spawnRaindrop() {
+    if (!rainEnabled) return;
+    const drop = document.createElement('div');
+    drop.className = 'raindrop';
+    drop.style.left = Math.random() * window.innerWidth + 'px';
+    drop.style.animationDuration = (0.8 + Math.random() * 0.4) + 's';
+    rainContainer.appendChild(drop);
+    setTimeout(() => drop.remove(), 1500);
+  }
+
+  setInterval(spawnRaindrop, 50);
+
+  document.getElementById('toggleWeather').addEventListener('click', () => {
+    rainEnabled = !rainEnabled;
+    const icon = document.getElementById('weatherIcon');
+    icon.textContent = rainEnabled ? '⛆' : '☀️';
+  });
   </script>
 </body>
 </html>
