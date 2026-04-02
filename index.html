@@ -1,365 +1,230 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>nixcookies</title>
-  <meta name="description" content="Links by nixcookies." />
-  <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nixcookies</title>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --primary-dark: #1e3a8a;
+            --text: #333;
+            --text-light: #666;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
 
-  <style>
-    :root {
-      --bg: #f0f9f5; 
-      --card: #ffffff; 
-      --accent: #7dd3c0; 
-      --text: #06070b; 
-      --muted: #6b7280;
-      --border: rgba(0, 0, 0, 0.08);
-      --radius: 16px;
-      --radius-sm: 12px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(800px 800px at 90% 10%, rgba(125, 211, 192, 0.1), transparent 60%),
-        radial-gradient(700px 700px at 10% 90%, rgba(147, 112, 219, 0.1), transparent 60%);
-      z-index: 0;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .news-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(90deg, #7dd3c0, #87ceeb);
-      color: var(--bg);
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10001;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .close-banner {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--bg);
-    }
+        .content {
+            flex: 1;
+        }
 
-    .wrap {
-      width: 100%;
-      max-width: 720px;
-      padding: 32px 18px;
-      position: relative;
-      z-index: 2;
-      margin-top: 50px;
-    }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 3rem;
+        }
 
-    .profile {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 22px;
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-    }
-    .favicon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-    }
-    .who {
-      display: grid;
-      gap: 4px;
-    }
-    .name {
-      font-weight: 700;
-      font-size: 18px;
-      text-transform: lowercase;
-    }
-    .tagline {
-      font-size: 13px;
-      color: var(--muted);
-    }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
 
-    .grid {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-    .card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border-radius: var(--radius);
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(125, 211, 192, 0.5);
-    }
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: white;
-      background: linear-gradient(135deg, #7dd3c0, #87ceeb);
-      box-shadow: 0 2px 8px rgba(125, 211, 192, 0.3);
-      flex-shrink: 0;
-    }
-    .label {
-      display: grid;
-      gap: 4px;
-    }
-    .title {
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .desc {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .arrow {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      color: var(--text);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .card:hover .arrow {
-      transform: translateX(4px);
-      border-color: rgba(125, 211, 192, 0.6);
-      background: rgba(125, 211, 192, 0.08);
-    }
+        .header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            opacity: 0.9;
+        }
 
-    .section-title {
-      margin: 22px 4px 12px;
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .foot {
-      margin-top: 20px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-    }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
 
-  .raindrop {
-    position: absolute;
-    width: 2.5px;
-    height: 15px; 
-    background: linear-gradient(to bottom, transparent, #088ddf); 
-    top: -15px;
-    left: 0;
-    transform: rotate(20deg);
-    animation: fall 1s linear forwards;
-  }
-  @keyframes fall {
-    to {
-      transform: translateY(110vh) rotate(20deg);
-    }
-  }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
 
-    .toggle-weather {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10000;
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid var(--accent);
-      background: rgba(125, 211, 192, 0.2);
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 2px 8px rgba(125, 211, 192, 0.4);
-    }
-    .toggle-weather:hover {
-      background: rgba(125, 211, 192, 0.35);
-    }
-  </style>
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card h3 {
+            margin: 0 0 0.75rem;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .project-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-card a:hover {
+            text-decoration: underline;
+        }
+
+        .project-card a::after {
+            content: "→";
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .footer-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 3rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="rain-layer" id="rain"></div>
-  <div class="news-banner" id="newsBanner">
-    <span>🎉 Announcement: <a href="https://nixcookies.github.io/bio/" target="_blank" style="color: var(--bg);">New look for the website</a></span>
-    <button class="close-banner" id="closeBanner">×</button>
-  </div>
+    <div class="content">
+        <header class="header">
+            <h1>Hey, I'm nixcookies!</h1>
+            <p>
+                Here you'll find my projects and projects by others that I find interesting. Take a look around and see what I'm up to!
+            </p>
+        </header>
 
-  <main class="wrap">
-    <section class="profile">
-      <img src="favicon.png" alt="nixcookies logo" class="favicon">
-      <div class="who">
-        <div class="name">nixcookies</div>
-        <div class="tagline">developer & a simple user</div>
-      </div>
-    </section>
+        <main class="projects">
+            <div class="project-card" onclick="window.location.href='https://discord.gg/tZYAfRPHjr'">
+                <h3>Emergency Neukölln</h3>
+                <p>
+                    A ROBLOX simulation game in development.
+                </p>
+                <a href="https://discord.gg/tZYAfRPHjr">Besuchen</a>
+            </div>
 
-    <h3 class="section-title">primary</h3>
-    <div class="grid">
-      <a class="card" href="https://discord.gg/MrSzJTpNvr" target="_blank">
-        <div class="left">
-          <div class="icon">💬</div>
-          <div class="label">
-            <div class="title">Discord</div>
-            <div class="desc">contact, projects, servers</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
-      <a class="card" href="https://github.com/nixcookies" target="_blank">
-        <div class="left">
-          <div class="icon">💻</div>
-          <div class="label">
-            <div class="title">GitHub</div>
-            <div class="desc">projects</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
+            <div class="project-card" onclick="window.location.href='https://discord.gg/TkRQ6hzEEN'">
+                <h3>Bundes RP Network</h3>
+                <p>
+                    Bundes RP Network is a roleplay server for the ROBLOX beta game Bundes RP.
+                </p>
+                <a href="https://discord.gg/TkRQ6hzEEN">Ausprobieren</a>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='https://discord.gg/emergency-emden'">
+                <h3>Emergency Emden</h3>
+                <p>
+                    A ROBLOX simulation game.
+                </p>
+                <a href="https://discord.gg/emergency-emden">Mehr erfahren</a>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='https://discord.gg/85qX35nXnY'">
+                <h3>Neukölln Kiez Roleplay</h3>
+                <p>
+                    A roleplay server for Emergency Neukölln.
+                </p>
+                <a href="https://discord.gg/85qX35nXnY">Besuchen</a>
+            </div>
+        </main>
     </div>
 
-    <h3 class="section-title">projects</h3>
-    <div class="grid">
-      <a class="card" href="https://discord.gg/jFS8sEenKS" target="_blank">
-        <div class="left">
-          <div class="icon">🌍</div>
-          <div class="label">
-            <div class="title">Global Studios</div>
-            <div class="desc">a small development studio</div>
-          </div>
+    <footer class="footer">
+        <p>© 2026 nixcookies</p>
+        <div class="footer-links">
+            <a href="https://github.com/nixcookies" target="_blank" rel="noopener noreferrer">
+                <span></span> GitHub
+            </a>
+            <a href="https://github.com/nixcookies/bio" target="_blank" rel="noopener noreferrer">
+                <span></span> GitHub Repository
+            </a>
+            <a href="https://www.roblox.com/de/users/7289395192/profile" target="_blank" rel="noopener noreferrer">
+                <span></span> Roblox
+            </a>
         </div>
-        <div class="arrow">→</div>
-      </a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://top.gg/de/bot/1340051960904028172" target="_blank">
-        <div class="left">
-          <div class="icon">🤖</div>
-          <div class="label">
-            <div class="title">Globify</div>
-            <div class="desc">globalchat discord bot (top.gg)</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://discord.gg/85qX35nXnY" target="_blank">
-        <div class="left">
-          <div class="icon">⚙️</div>
-          <div class="label">
-            <div class="title">Neukölln Kiez Roleplay</div>
-            <div class="desc">a roleplay server for Emergency Neukölln</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
-    </div>
-
-    <h3 class="section-title">servers i’m active on</h3>
-    <div class="grid">
-      <a class="card" href="https://discord.gg/tZYAfRPHjr" target="_blank">
-        <div class="left">
-          <div class="icon">🚓</div>
-          <div class="label">
-            <div class="title">Emergency Neukölln</div>
-            <div class="desc">ROBLOX simulation game in development</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
-      <a class="card" href="https://discord.gg/emergency-emden" target="_blank">
-        <div class="left">
-          <div class="icon">🚑</div>
-          <div class="label">
-            <div class="title">Emergency Emden</div>
-            <div class="desc">ROBLOX simulation game</div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-      </a>
-    </div>
-
-    <p class="foot">© <span id="y"></span> nixcookies</p>
-  </main>
-
-  <button class="toggle-weather" id="toggleWeather">
-    <span id="weatherIcon">⛆</span> Switch weather
-  </button>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    document.getElementById('closeBanner').addEventListener('click', () => {
-      document.getElementById('newsBanner').style.display = 'none';
-    });
-
-  const rainContainer = document.getElementById('rain');
-  let rainEnabled = true;
-
-  function spawnRaindrop() {
-    if (!rainEnabled) return;
-    const drop = document.createElement('div');
-    drop.className = 'raindrop';
-    drop.style.left = Math.random() * window.innerWidth + 'px';
-    drop.style.animationDuration = (0.8 + Math.random() * 0.4) + 's';
-    rainContainer.appendChild(drop);
-    setTimeout(() => drop.remove(), 1500);
-  }
-
-  setInterval(spawnRaindrop, 50);
-
-  document.getElementById('toggleWeather').addEventListener('click', () => {
-    rainEnabled = !rainEnabled;
-    const icon = document.getElementById('weatherIcon');
-    icon.textContent = rainEnabled ? '⛆' : '☀️';
-  });
-  </script>
+    </footer>
 </body>
 </html>
