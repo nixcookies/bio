@@ -58,6 +58,30 @@
             opacity: 0.9;
         }
 
+        .contact-info {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .contact-info a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -175,6 +199,14 @@
             <p>
                 Here you'll find my projects and projects by others that I find interesting. Take a look around and see what I'm up to!
             </p>
+            <div class="contact-info">
+                <a href="mailto:nixcookies@emailthing.xyz">
+                    <span>📧</span> Mail
+                </a>
+                <a href="https://discord.gg/MrSzJTpNvr" target="_blank" rel="noopener noreferrer">
+                    <span>💬</span> Discord
+                </a>
+            </div>
         </header>
 
         <main class="projects">
@@ -183,7 +215,7 @@
                 <p>
                     A ROBLOX simulation game in development.
                 </p>
-                <a href="https://discord.gg/tZYAfRPHjr">Besuchen</a>
+                <a href="https://discord.gg/tZYAfRPHjr">Check it out</a>
             </div>
 
             <div class="project-card" onclick="window.location.href='https://discord.gg/TkRQ6hzEEN'">
@@ -191,7 +223,7 @@
                 <p>
                     Bundes RP Network is a roleplay server for the ROBLOX beta game Bundes RP.
                 </p>
-                <a href="https://discord.gg/TkRQ6hzEEN">Ausprobieren</a>
+                <a href="https://discord.gg/TkRQ6hzEEN">Try it out</a>
             </div>
 
             <div class="project-card" onclick="window.location.href='https://discord.gg/emergency-emden'">
@@ -199,7 +231,7 @@
                 <p>
                     A ROBLOX simulation game.
                 </p>
-                <a href="https://discord.gg/emergency-emden">Mehr erfahren</a>
+                <a href="https://discord.gg/emergency-emden">Learn more</a>
             </div>
 
             <div class="project-card" onclick="window.location.href='https://discord.gg/85qX35nXnY'">
@@ -207,7 +239,15 @@
                 <p>
                     A roleplay server for Emergency Neukölln.
                 </p>
-                <a href="https://discord.gg/85qX35nXnY">Besuchen</a>
+                <a href="https://discord.gg/85qX35nXnY">Check it out</a>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='https://discord.gg/aUPt98Syg3'">
+                <h3>Tropical Studios</h3>
+                <p>
+                    A small game development studio on the ROBLOX platform
+                </p>
+                <a href="https://discord.gg/aUPt98Syg3">Visit</a>
             </div>
         </main>
     </div>
