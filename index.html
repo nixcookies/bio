@@ -1,278 +1,280 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nixcookies</title>
-    <style>
-        :root {
-            --primary: #4a6fa5;
-            --primary-dark: #1e3a8a;
-            --text: #333;
-            --text-light: #666;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nixcookies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+:root {
+  --bg: #0f0f0f;
+  --surface: #181818;
+  --surface2: #202020;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.18);
+  --text: #f0f0ec;
+  --muted: #7a7a74;
+  --accent: #4a92f0;
+  --accent-dim: rgba(212,240,74,0.1);
+}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.25rem 5rem;
+}
 
-        .content {
-            flex: 1;
-        }
+.page { width: 100%; max-width: 460px; }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 3rem;
-        }
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.25rem;
+}
 
-        .header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--accent);
+  flex-shrink: 0;
+}
 
-        .header p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 1rem auto 0;
-            opacity: 0.9;
-        }
+.header-text h1 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
 
-        .contact-info {
-            margin-top: 1.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
+.header-text .handle {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
 
-        .contact-info a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: background-color 0.2s;
-        }
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
 
-        .contact-info a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+.tag {
+  font-size: 0.67rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
 
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            padding: 0 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-        }
+.tag.lit {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
 
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-        }
+.section-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  padding-left: 0.1rem;
+}
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-            border-color: rgba(0, 0, 0, 0.1);
-        }
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
 
-        .project-card h3 {
-            margin: 0 0 0.75rem;
-            color: var(--primary-dark);
-            font-size: 1.3rem;
-        }
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
 
-        .project-card p {
-            color: var(--text-light);
-            margin-bottom: 1.25rem;
-        }
+.link:hover {
+  border-color: var(--border-hover);
+  background: var(--surface2);
+}
 
-        .project-card a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+.link-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
 
-        .project-card a:hover {
-            text-decoration: underline;
-        }
+.link-body { flex: 1; min-width: 0; }
 
-        .project-card a::after {
-            content: "→";
-            font-size: 1.1rem;
-        }
+.link-title {
+  font-size: 0.83rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-        .footer {
-            background-color: var(--primary-dark);
-            color: white;
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: auto;
-            width: 100%;
-        }
+.link-sub {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
+.link-arrow {
+  font-size: 0.75rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
 
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: background-color 0.2s;
-        }
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.25rem 0 1.75rem;
+}
 
-        .footer-links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+.socials {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
 
-        @media (max-width: 768px) {
-            .header {
-                padding: 3rem 1rem;
-            }
+.soc {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.7rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
 
-            .header h1 {
-                font-size: 2rem;
-            }
+.soc:hover {
+  color: var(--text);
+  border-color: var(--border-hover);
+  background: var(--surface2);
+}
 
-            .projects {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</style>
 </head>
 <body>
-    <div class="content">
-        <header class="header">
-            <h1>Hey, I'm nixcookies!</h1>
-            <p>
-                Here you'll find my projects and projects by others that I find interesting. Take a look around and see what I'm up to!
-            </p>
-            <div class="contact-info">
-                <a href="mailto:nixcookies@emailthing.xyz">
-                    <span>📧</span> Mail
-                </a>
-                <a href="https://discord.gg/MrSzJTpNvr" target="_blank" rel="noopener noreferrer">
-                    <span>💬</span> Discord
-                </a>
-            </div>
-        </header>
+<div class="page">
 
-        <main class="projects">
-            <div class="project-card" onclick="window.location.href='https://discord.gg/tZYAfRPHjr'">
-                <h3>Emergency Neukölln</h3>
-                <p>
-                    A ROBLOX simulation game in development.
-                </p>
-                <a href="https://discord.gg/tZYAfRPHjr">Check it out</a>
-            </div>
-
-            <div class="project-card" onclick="window.location.href='https://discord.gg/TkRQ6hzEEN'">
-                <h3>Bundes RP Network</h3>
-                <p>
-                    Bundes RP Network is a roleplay server for the ROBLOX beta game Bundes RP.
-                </p>
-                <a href="https://discord.gg/TkRQ6hzEEN">Try it out</a>
-            </div>
-
-            <div class="project-card" onclick="window.location.href='https://discord.gg/emergency-emden'">
-                <h3>Emergency Emden</h3>
-                <p>
-                    A ROBLOX simulation game.
-                </p>
-                <a href="https://discord.gg/emergency-emden">Learn more</a>
-            </div>
-
-            <div class="project-card" onclick="window.location.href='https://discord.gg/wWwMgKGrP7'">
-                <h3>Emden Info</h3>
-                <p>
-                    We're collecting (helpful) tips and tricks about Emergency Emden. Help us!!
-                </p>
-                <a href="https://discord.gg/wWwMgKGrP7">Help now!</a>
-            </div>                     
-
-            <div class="project-card" onclick="window.location.href='https://discord.gg/85qX35nXnY'">
-                <h3>Neukölln Kiez Roleplay</h3>
-                <p>
-                    A roleplay server for Emergency Neukölln.
-                </p>
-                <a href="https://discord.gg/85qX35nXnY">Check it out</a>
-            </div>
-
-            <div class="project-card" onclick="window.location.href='https://discord.gg/aUPt98Syg3'">
-                <h3>Tropical Studios</h3>
-                <p>
-                    A small game development studio on the ROBLOX platform
-                </p>
-                <a href="https://discord.gg/aUPt98Syg3">Visit</a>
-            </div>
-        </main>
+  <div class="header">
+    <div class="avatar">NC</div>
+    <div class="header-text">
+      <h1>nixcookies</h1>
+      <p class="handle">nixcookies@emailthing.xyz</p>
     </div>
+  </div>
 
-    <footer class="footer">
-        <p>© 2026 nixcookies</p>
-        <div class="footer-links">
-            <a href="https://github.com/nixcookies" target="_blank" rel="noopener noreferrer">
-                <span></span> GitHub
-            </a>
-            <a href="https://github.com/nixcookies/bio" target="_blank" rel="noopener noreferrer">
-                <span></span> GitHub Repository
-            </a>
-            <a href="https://www.roblox.com/de/users/7289395192/profile" target="_blank" rel="noopener noreferrer">
-                <span></span> Roblox
-            </a>
-        </div>
-    </footer>
+  <div class="tags">
+    <span class="tag lit">Tester @BundesRP</span>
+    <span class="tag lit">Tester @Dart Battles</span>
+  </div>
+
+  <p class="section-label">Projects I like</p>
+  <div class="links">
+    <a class="link" href="https://discord.gg/tZYAfRPHjr" target="_blank" rel="noopener">
+      <div class="link-icon">🚨</div>
+      <div class="link-body">
+        <div class="link-title">Emergency Neukölln</div>
+        <div class="link-sub">ROBLOX simulation · in development</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a class="link" href="https://discord.gg/emergency-emden" target="_blank" rel="noopener">
+      <div class="link-icon">🌊</div>
+      <div class="link-body">
+        <div class="link-title">Emergency Emden</div>
+        <div class="link-sub">ROBLOX simulation game</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a class="link" href="https://discord.gg/wWwMgKGrP7" target="_blank" rel="noopener">
+      <div class="link-icon">📚</div>
+      <div class="link-body">
+        <div class="link-title">Emden Info</div>
+        <div class="link-sub">Tips &amp; tricks wiki · help wanted</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a class="link" href="https://discord.gg/85qX35nXnY" target="_blank" rel="noopener">
+      <div class="link-icon">🏙️</div>
+      <div class="link-body">
+        <div class="link-title">Neukölln Kiez RP</div>
+        <div class="link-sub">Roleplay server for Emergency Neukölln</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a class="link" href="https://discord.gg/aUPt98Syg3" target="_blank" rel="noopener">
+      <div class="link-icon">🌴</div>
+      <div class="link-body">
+        <div class="link-title">Tropical Studios</div>
+        <div class="link-sub">Small ROBLOX game dev studio</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+  </div>
+
+  <p class="section-label">More</p>
+  <div class="links">
+    <a class="link" href="https://discord.gg/TkRQ6hzEEN" target="_blank" rel="noopener">
+      <div class="link-icon">🇩🇪</div>
+      <div class="link-body">
+        <div class="link-title">Bundes RP Network</div>
+        <div class="link-sub">Roleplay server · beta game</div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="socials">
+    <a class="soc" href="https://github.com/nixcookies" target="_blank" rel="noopener">GitHub</a>
+    <a class="soc" href="https://discord.gg/MrSzJTpNvr" target="_blank" rel="noopener">Discord</a>
+    <a class="soc" href="mailto:nixcookies@emailthing.xyz">Mail</a>
+    <a class="soc" href="https://www.roblox.com/de/users/7289395192/profile" target="_blank" rel="noopener">Roblox</a>
+  </div>
+</div>
 </body>
 </html>
